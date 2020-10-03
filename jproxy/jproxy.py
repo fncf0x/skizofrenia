@@ -49,13 +49,13 @@ class JProxy():
         cursor.execute(query, (ip,))
         exist = True if len(cursor.fetchall()) > 0 else False
         if exist:
-            print(f'[{name}]{ip} already in the DB')
+            logging.info(f'[{name}]{ip} already in the DB')
             conn.close()
             exit()
         query = f'INSERT INTO {self.PROXY_TABLE}(region, ip, port, created_at) VALUES(?, ?, ?, datetime())'
         cursor.execute(query, (region, ip, port))
         conn.commit()
-        print(f'[{name}] proxy inserted')
+        logging.info(f'[{name}] proxy inserted')
         conn.close()
         exit()
 
@@ -67,15 +67,15 @@ class JProxy():
             thread.start()
         name = src_info[0]
         wait_delay = src_info[2]
-        print(f'[{name}] thread is sleeping for {wait_delay} seconds')
+        logging.info(f'[{name}] thread is sleeping for {wait_delay} seconds')
     
     def insert_proxy_thread(self, ip, port, src_info):
         name = src_info[0]
-        print(f'[{name}]fetching region for {ip}')
+        logging.info(f'[{name}]fetching region for {ip}')
         region = self.get_ip_region(ip)
-        print(f'[{name}]inserting {ip} in the DB')
+        logging.info(f'[{name}]inserting {ip} in the DB')
         self.insert_proxy_row(region, ip, port, src_info)
-        print(f'[{name}]proxy {ip}:{port} inserted successfuly')
+        logging.info(f'[{name}]proxy {ip}:{port} inserted successfuly')
 
     def get_ip_region(self, ip):
         try:
@@ -88,7 +88,7 @@ class JProxy():
         while True:
             proxy_src_path = f'{self.SRC_BASE}/{path}'
             proxy_src_info = (name, path, wait_delay)
-            print(f'[{name}] starting thread')
+            logging.info(f'[{name}] starting thread')
             src_proc = subprocess.Popen([proxy_src_path], stdout=subprocess.PIPE)
             proxies = src_proc.stdout.read().decode().split('\n')[:-1]
             proxies_list = [(proxy.split(':')[0], proxy.split(':')[1]) for proxy in proxies]
@@ -104,4 +104,5 @@ class JProxy():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     JProxy()
