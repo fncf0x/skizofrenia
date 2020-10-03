@@ -1,0 +1,8 @@
+- name: Spys
+  check_delay: 230
+  path: proxy_src_1.py
+  prior: 1
+- name: Proxy Scrape
+  check_delay: 50
+  path: proxy_src_2.py
+  prior: 1
