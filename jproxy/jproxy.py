@@ -10,7 +10,7 @@ import logging
 class JProxy():
 
     def __init__(self):
-        self.DB_PATH = os.getenv('PROXY_DB_URI', './jproxy.db')
+        self.DB_PATH = os.getenv('PROXY_DB_URI', '../database/jproxy.db')
         self.PROXY_CONFIG_FILE = os.getenv('PROXY_CONFIG_FILE', './config.yaml')
         self.PROXY_TABLE = 'jproxy'
         self.IPINFO_URL = 'https://ipinfo.io/{}/json'
