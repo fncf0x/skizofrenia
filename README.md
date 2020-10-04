@@ -65,6 +65,28 @@ tmux new -s skizofrenia
 source env/bin/activate
 python api.py
 ```
+## How to use
+Simply send a request to the api, and get your new proxy !
+
+*get a random proxy*
+```bash
+curl http://<IP>:60137/newProxy
+```
+
+*get a specific region proxy*
+```bash
+curl http://<IP>:60137/newProxy?region=US
+```
+the result will be somethig like this
+```json
+{
+    "ip": "174.76.35.7",
+    "port": "36171",
+    "region": "US"
+}
+
+```
+
 ## Add a new proxy src
 In case you want to add a new proxy source, follow the steps:
 
@@ -79,7 +101,7 @@ In case you want to add a new proxy source, follow the steps:
 - name: Spys
 ...[snip]
 - name: Test
-  check_delay: 15 # each 50s
+  check_delay: 15 # each 15s
   path: test.py
   prior: 1 # not important yet
 EOF
