@@ -11,7 +11,7 @@ Skizofrenia has two main running services:
 ## How to deploy
 clone the repo
 ```bash
-git clone https://github.com/mps-dz/skizofrenia
+git clone https://github.com/fncf0x/skizofrenia
 ```
 change working directory
 ```bash
